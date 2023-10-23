@@ -11,6 +11,9 @@ struct Nodo
 void Push(int);
 void Imprimir();
 void Pop();
+bool Vacia();
+int Top();
+int UltimoElemento();
 
 struct Nodo *Recamara = nullptr; //Creación de cartucho principal
 
@@ -27,6 +30,9 @@ int main()
     }
     Pop();
     Imprimir();
+    Vacia();
+    cout << "Se aplica la funcion de UltimoElemento: " << endl;
+    cout << UltimoElemento() << endl;
 
     return 0;
 }
@@ -56,10 +62,32 @@ void Imprimir()
     }
 }
 
-void Pop(){
-    if(Recamara != nullptr){
+void Pop()
+{
+    if (Recamara != nullptr)
+    {
         struct Nodo *RecamaraTemporal = Recamara; //La temporal se conecta con la original para controlar los cartuchos
-        Recamara = RecamaraTemporal->siguiente; //La original se conecta con el cartucho siguiente a ser disparado porque el temporal ya se disparara
-        delete RecamaraTemporal; //PUM! se disparo la bala y el cartucho que fuera de la recamara
+        Recamara = RecamaraTemporal->siguiente;   //La original se conecta con el cartucho siguiente a ser disparado porque el temporal ya se disparara
+        delete RecamaraTemporal;                  //PUM! se disparo la bala y el cartucho que fuera de la recamara
+    }
+}
+
+bool Vacia()
+{
+    //La funcion evaluara si esta nula o no, asi el valor retornado sera 1 en caso de que este vacia
+    //Pero si tiene contenido no cumplira la la condicion y retornara cero 0
+    return Recamara == nullptr;
+}
+
+int UltimoElemento()
+{
+    if (Recamara == nullptr)
+    { //La Recamara apuntara siempre a un valor menor, pero si es 0 solo se puede imprimir -1
+        return -1;
+        //Si fuese 1 al aplicar -1  retornaria 0
+    }
+    else
+    {
+        return Recamara->Cartucho; //Simplemente muestra el valor de la Recamara en la cima
     }
 }
